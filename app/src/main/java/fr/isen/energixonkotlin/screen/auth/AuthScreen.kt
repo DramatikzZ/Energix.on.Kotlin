@@ -1,19 +1,26 @@
 package fr.isen.energixonkotlin.screen.auth
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -26,21 +33,40 @@ import fr.isen.energixonkotlin.R
 
 @Composable
 fun AuthScreen(modifier: Modifier = Modifier, navController : NavHostController) {
+
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
+            .background(
+                brush = Brush.linearGradient(
+                    colors = listOf(Color(0xFF089bac), Color(0xFF76d55d)),
+                    start = Offset(0f, 0f),
+                    end = Offset.Infinite
+                )
+            )
             .padding(32.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        Image(
-            painter = painterResource(id = R.drawable.banner_auth),
-            contentDescription = "image",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp)
+        Row (
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         )
+        {
+            Image(
+                painter = painterResource(id = R.drawable.logo_energix),
+                contentDescription = "logo",
+                modifier = Modifier.height(120.dp)
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            Text(
+                text = "ENERGIX",
+                fontSize = 50.sp,
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -54,18 +80,25 @@ fun AuthScreen(modifier: Modifier = Modifier, navController : NavHostController)
             )
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        Button(
+        OutlinedButton(
             onClick = {
                 navController.navigate("login")
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(60.dp),
+            colors = ButtonColors(
+                containerColor =  Color.Yellow,
+                contentColor =  Color.Black,
+                disabledContainerColor =  Color.Yellow,
+                disabledContentColor =  Color.Yellow
+            )
+
         ) {
             Text(
-                text = "Login",
+                text = "Se connecter",
                 fontSize = 22.sp
             )
         }
@@ -78,10 +111,16 @@ fun AuthScreen(modifier: Modifier = Modifier, navController : NavHostController)
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(60.dp),
+            colors = ButtonColors(
+                containerColor =  Color.White,
+                contentColor =  Color.Black,
+                disabledContainerColor =  Color.White,
+                disabledContentColor =  Color.White
+            )
         ) {
             Text(
-                text = "Signup",
+                text = "Créer un compte",
                 fontSize = 22.sp
             )
         }
